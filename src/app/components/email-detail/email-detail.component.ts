@@ -2,13 +2,14 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Email } from '../../interfaces/email.interface';
 import { EmailService } from '../../services/email.service';
 
 @Component({
   selector: 'app-email-detail',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule],
   template: `
     <div class="email-detail-container">
       <div *ngIf="!selectedEmail" class="empty-state">
@@ -54,6 +55,27 @@ import { EmailService } from '../../services/email.service';
         <div class="email-body">
           <div *ngIf="displayType === 'mail'" class="email-full-content">
             <div class="content-text">{{ selectedEmail.content }}</div>
+            
+            <div *ngIf="selectedEmail.attachments && selectedEmail.attachments.length > 0" class="attachments-section">
+              <div class="attachments-header">
+                <mat-icon>attach_file</mat-icon>
+                <span>Attachments ({{ selectedEmail.attachments.length }})</span>
+              </div>
+              <div class="attachments-list">
+                <div *ngFor="let attachment of selectedEmail.attachments" class="attachment-item">
+                  <div class="attachment-icon">
+                    <mat-icon>{{ getAttachmentIcon(attachment.type) }}</mat-icon>
+                  </div>
+                  <div class="attachment-info">
+                    <div class="attachment-name">{{ attachment.name }}</div>
+                    <div class="attachment-size">{{ attachment.size }}</div>
+                  </div>
+                  <button mat-icon-button class="download-btn" matTooltip="Download">
+                    <mat-icon>download</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           
           <div *ngIf="displayType === 'summary'" class="email-summary">
@@ -61,7 +83,7 @@ import { EmailService } from '../../services/email.service';
               <mat-icon>auto_awesome</mat-icon>
               <span>AI-Generated Summary</span>
             </div>
-            <div class="summary-text">{{ getSummaryText() }}</div>
+            <div class="summary-text">{{ selectedEmail.summary }}</div>
           </div>
         </div>
 
@@ -251,6 +273,7 @@ import { EmailService } from '../../services/email.service';
     .email-body {
       flex: 1;
       margin-bottom: 28px;
+      overflow-y: auto;
     }
 
     .content-text {
@@ -262,6 +285,7 @@ import { EmailService } from '../../services/email.service';
       background: #fafbfc;
       border-radius: 12px;
       border: 1px solid #f1f5f9;
+      margin-bottom: 24px;
     }
 
     .email-summary {
@@ -308,6 +332,101 @@ import { EmailService } from '../../services/email.service';
       padding: 20px;
       border-radius: 12px;
       border: 1px solid rgba(168, 85, 247, 0.1);
+    }
+
+    .attachments-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .attachments-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      color: #475569;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .attachments-header mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      color: #667eea;
+    }
+
+    .attachments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .attachment-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .attachment-item:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .attachment-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      color: white;
+    }
+
+    .attachment-icon mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+
+    .attachment-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .attachment-name {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+    }
+
+    .attachment-size {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .download-btn {
+      color: #667eea;
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background-color: rgba(102, 126, 234, 0.1);
+      color: #5a67d8;
     }
 
     .email-actions {
@@ -369,19 +488,25 @@ import { EmailService } from '../../services/email.service';
       .email-subject {
         font-size: 24px;
       }
+
+      .attachments-list {
+        gap: 8px;
+      }
+
+      .attachment-item {
+        padding: 12px;
+      }
     }
   `]
 })
 export class EmailDetailComponent {
   @Input() selectedEmail: Email | null = null;
-  displayType: 'mail' | 'summary' = 'mail';
+  @Input() displayType: 'mail' | 'summary' = 'mail';
 
   constructor(private emailService: EmailService) {}
 
   ngOnChanges() {
-    if (this.selectedEmail) {
-      this.showFullMail();
-    }
+    // Display type is now controlled by parent component
   }
 
   showFullMail() {
@@ -392,12 +517,36 @@ export class EmailDetailComponent {
     this.displayType = 'summary';
   }
 
-  getSummaryText(): string {
-    if (!this.selectedEmail) return '';
-    
-    // Get first 100 characters of the email content
-    const summary = this.selectedEmail.content.substring(0, 100);
-    return summary + (this.selectedEmail.content.length > 100 ? '...' : '');
+  getAttachmentIcon(type: string): string {
+    switch (type.toLowerCase()) {
+      case 'pdf':
+        return 'picture_as_pdf';
+      case 'docx':
+      case 'doc':
+        return 'description';
+      case 'xlsx':
+      case 'xls':
+        return 'table_chart';
+      case 'txt':
+        return 'text_snippet';
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+      case 'gif':
+        return 'image';
+      case 'zip':
+      case 'rar':
+        return 'archive';
+      case 'mp4':
+      case 'avi':
+      case 'mov':
+        return 'video_file';
+      case 'mp3':
+      case 'wav':
+        return 'audio_file';
+      default:
+        return 'insert_drive_file';
+    }
   }
 
   formatDateTime(date: Date): string {
