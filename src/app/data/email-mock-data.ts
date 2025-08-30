@@ -1,4 +1,4 @@
-import { Email } from '../interfaces/email.interface';
+import { Email, EmailAttachment } from '../interfaces/email.interface';
 
 export const MOCK_EMAILS: Email[] = [
   {
@@ -6,6 +6,7 @@ export const MOCK_EMAILS: Email[] = [
     subject: 'Quarterly Performance Review Meeting',
     sender: 'Sarah Johnson <sarah.johnson@company.com>',
     preview: 'Hi there! I hope this email finds you well. I wanted to schedule our quarterly performance review meeting...',
+    summary: 'Sarah Johnson is scheduling quarterly performance review meetings to discuss achievements, goals, and development opportunities. The meeting is set for next Friday at 2:00 PM in Conference Room A.',
     content: `Dear Team Member,
 
 I hope this email finds you well. I wanted to schedule our quarterly performance review meeting to discuss your achievements, goals, and development opportunities for the upcoming quarter.
@@ -24,6 +25,20 @@ Looking forward to our conversation!
 Best regards,
 Sarah Johnson
 HR Manager`,
+    attachments: [
+      {
+        id: 1,
+        name: 'Performance_Review_Template.pdf',
+        type: 'pdf',
+        size: '245 KB'
+      },
+      {
+        id: 2,
+        name: 'Goal_Setting_Worksheet.docx',
+        type: 'docx',
+        size: '128 KB'
+      }
+    ],
     timestamp: new Date('2025-01-10T09:30:00'),
     isRead: false
   },
@@ -32,6 +47,7 @@ HR Manager`,
     subject: 'Project Alpha - Final Delivery Timeline',
     sender: 'Mike Chen <mike.chen@techcorp.com>',
     preview: 'Following up on our discussion yesterday, I wanted to confirm the final delivery timeline for Project Alpha...',
+    summary: 'Mike Chen confirms Project Alpha delivery timeline with key milestones from January 15th to February 12th. Includes design approval, development, testing, and production deployment phases.',
     content: `Hi Team,
 
 Following up on our discussion yesterday, I wanted to confirm the final delivery timeline for Project Alpha and ensure everyone is aligned on the deliverables.
@@ -52,6 +68,26 @@ Thanks for your continued hard work on this project!
 Best,
 Mike Chen
 Project Manager`,
+    attachments: [
+      {
+        id: 3,
+        name: 'Project_Alpha_Timeline.xlsx',
+        type: 'xlsx',
+        size: '89 KB'
+      },
+      {
+        id: 4,
+        name: 'Technical_Specifications.pdf',
+        type: 'pdf',
+        size: '1.2 MB'
+      },
+      {
+        id: 5,
+        name: 'Resource_Allocation.txt',
+        type: 'txt',
+        size: '12 KB'
+      }
+    ],
     timestamp: new Date('2025-01-09T14:45:00'),
     isRead: true
   },
@@ -60,6 +96,7 @@ Project Manager`,
     subject: 'Security Update: Two-Factor Authentication Required',
     sender: 'IT Security <security@company.com>',
     preview: 'Important security notice: Starting February 1st, two-factor authentication will be required for all company accounts...',
+    summary: 'IT Security announces mandatory two-factor authentication for all company accounts starting February 1st, 2025. Affects email, cloud storage, internal systems, and VPN connections.',
     content: `Important Security Notice
 
 Dear All Staff,
@@ -93,6 +130,7 @@ IT Security Team`,
     subject: 'Team Building Event - Save the Date',
     sender: 'Emma Wilson <emma.wilson@company.com>',
     preview: 'Exciting news! We are organizing a team building event for the entire department on February 20th...',
+    summary: 'Emma Wilson announces team building event on February 20th at Adventure Park & Conference Center. Includes team challenges, outdoor activities, catered lunch, and awards ceremony. RSVP by February 10th.',
     content: `Hi Everyone!
 
 Exciting news! We are organizing a team building event for the entire department on February 20th, and we want everyone to participate!
@@ -119,6 +157,32 @@ Looking forward to seeing everyone there!
 Cheers,
 Emma Wilson
 Team Coordinator`,
+    attachments: [
+      {
+        id: 6,
+        name: 'Event_Details.pdf',
+        type: 'pdf',
+        size: '567 KB'
+      },
+      {
+        id: 7,
+        name: 'Activity_Schedule.xlsx',
+        type: 'xlsx',
+        size: '78 KB'
+      },
+      {
+        id: 8,
+        name: 'Transportation_Info.txt',
+        type: 'txt',
+        size: '8 KB'
+      },
+      {
+        id: 9,
+        name: 'Venue_Map.jpg',
+        type: 'jpg',
+        size: '2.1 MB'
+      }
+    ],
     timestamp: new Date('2025-01-07T16:15:00'),
     isRead: true
   },
@@ -127,6 +191,7 @@ Team Coordinator`,
     subject: 'New Company Policy: Remote Work Guidelines',
     sender: 'David Martinez <david.martinez@company.com>',
     preview: 'We are updating our remote work policy to better support work-life balance and productivity...',
+    summary: 'David Martinez announces updated remote work policy effective February 1st. Includes eligibility criteria, schedule options, requirements, and equipment support with $500 annual home office stipend.',
     content: `Dear Team,
 
 We are updating our remote work policy to better support work-life balance and productivity. These changes take effect on February 1st, 2025.
@@ -159,6 +224,20 @@ Please review the full policy document attached and discuss any questions with y
 Best regards,
 David Martinez
 Operations Manager`,
+    attachments: [
+      {
+        id: 10,
+        name: 'Remote_Work_Policy_2025.pdf',
+        type: 'pdf',
+        size: '892 KB'
+      },
+      {
+        id: 11,
+        name: 'Equipment_Request_Form.docx',
+        type: 'docx',
+        size: '156 KB'
+      }
+    ],
     timestamp: new Date('2025-01-06T13:40:00'),
     isRead: false
   }
