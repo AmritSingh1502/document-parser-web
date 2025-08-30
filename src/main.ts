@@ -375,7 +375,7 @@ import { EmailService } from '../../services/email.service';
 })
 export class EmailDetailComponent {
   @Input() selectedEmail: Email | null = null;
-  displayType: 'mail' | 'summary' = 'mail';
+  @Input() displayType: 'mail' | 'summary' = 'mail';
 
   constructor(private emailService: EmailService) {}
 
@@ -407,10 +407,8 @@ export class EmailDetailComponent {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-  displayType: 'mail' | 'summary' = 'mail';
       hour: '2-digit',
       minute: '2-digit'
     }).format(date);
-    this.displayType = event.action;
   }
 }
