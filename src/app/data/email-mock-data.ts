@@ -7,6 +7,7 @@ export const MOCK_EMAILS: Email[] = [
     sender: 'Sarah Johnson <sarah.johnson@company.com>',
     preview: 'Hi there! I hope this email finds you well. I wanted to schedule our quarterly performance review meeting...',
     summary: 'Sarah Johnson is scheduling quarterly performance review meetings to discuss achievements, goals, and development opportunities. The meeting is set for next Friday at 2:00 PM in Conference Room A.',
+    summary: 'Sarah Johnson is scheduling quarterly performance review meetings to discuss achievements, goals, and development opportunities. The meeting is set for next Friday at 2:00 PM in Conference Room A.',
     content: `Dear Team Member,
 
 I hope this email finds you well. I wanted to schedule our quarterly performance review meeting to discuss your achievements, goals, and development opportunities for the upcoming quarter.
@@ -96,6 +97,7 @@ Project Manager`,
     subject: 'Security Update: Two-Factor Authentication Required',
     sender: 'IT Security <security@company.com>',
     preview: 'Important security notice: Starting February 1st, two-factor authentication will be required for all company accounts...',
+    summary: 'IT Security announces mandatory two-factor authentication for all company accounts starting February 1st, 2025. Affects email, cloud storage, internal systems, and VPN connections.',
     summary: 'IT Security announces mandatory two-factor authentication for all company accounts starting February 1st, 2025. Affects email, cloud storage, internal systems, and VPN connections.',
     content: `Important Security Notice
 
